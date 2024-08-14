@@ -9,14 +9,14 @@ class GatewayAPIHandler:
         self.url = url
 
     async def get(self, endpoint: str):
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(20.0)) as client:
             response = await client.get(
                 f"{self.url}{endpoint}",
             )
             return response
     
     async def post_json(self, endpoint: str, data: dict):
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(20.0)) as client:
             response = await client.post(
                 f"{self.url}{endpoint}",
                 json=data
